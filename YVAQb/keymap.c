@@ -126,6 +126,10 @@ combo_t key_combos[COMBO_COUNT] = {
 
 extern rgb_config_t rgb_matrix_config;
 
+void housekeeping_task_user(void) {
+    achordion_task();
+}
+
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 }
@@ -210,6 +214,10 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    
+    // ACHORDION CHANGES
+    if (!process_achordion(keycode, record)) { return false; }
+
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
